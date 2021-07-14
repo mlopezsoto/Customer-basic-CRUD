@@ -1,0 +1,21 @@
+version: '3'
+services:
+  h2-database-server:
+    image: h2-server:latest
+    environment:
+      - H2_OPTIONS=-ifNotExists
+    ports:
+      - 1521:1521
+      - 81:81
+  customer-services1:
+    image: customer-services:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - h2-database-server
+  customer-services2:
+    image: customer-services:latest
+    ports:
+      - 8081:8080
+    depends_on:
+      - h2-database-server
